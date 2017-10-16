@@ -1,0 +1,31 @@
+mutation{
+  updateLink(id:"cj8nbaqzx7pjd01010ji6cwcw", url:"www.viters.dk") {
+    url
+	}
+}
+
+
+query ($user_id: ID!, $node_id: ID!) {
+  SomeLinkExists(
+    filter: {
+      id: $node_id,
+      postedBy: {
+        id: $user_id
+      }
+    }
+  )
+}
+
+
+subscription {
+  Link(filter: {
+    mutation_in: [CREATED]
+  }) {
+    mutation # contains CREATED, UPDATED or DELETED
+    node {
+      id
+      description
+      url
+    }
+  }
+}
